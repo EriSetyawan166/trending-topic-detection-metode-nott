@@ -75,22 +75,47 @@ def calculate_entropy_overlap(frequent_term_set, data):
         
     return entropy_overlap_results
 
-def remove_document(entropy_overlap_results):
-    removed_dict = {}
-    lowest_value = float('inf')  # Set initial lowest value to infinity
-    lowest_entry = None  # Set initial lowest entry to None
+def remove_document(entropy_overlap_results, min_support):
+    removed_docs = []
+    lowest_dicts = []
+    keys_to_remove = []
+    lowest_value = float('inf')
 
+    # Find the dict(s) with the lowest value
     for term_set, document in entropy_overlap_results.items():
-        frequency = document[1]  # Get the frequency
+        frequency = document[1]
         if frequency < lowest_value:
             lowest_value = frequency
-            lowest_entry = {term_set: document}
+            lowest_dicts = [{term_set: document}]
+        elif frequency == lowest_value:
+            lowest_dicts.append({term_set: document})
+
+    # Get the list of documents to be removed from all lowest dicts
+    for lowest_dict in lowest_dicts:
+        removed_docs.extend(lowest_dict[list(lowest_dict.keys())[0]][0])
+    # print("\nlowest dicts")
+    # print(lowest_dicts)
+
+    updated_results = {}
+    for term_set, document in entropy_overlap_results.items():
+        remaining_docs = [doc for doc in document[0] if doc not in removed_docs]
+        if remaining_docs:
+            updated_results[term_set] = (remaining_docs, document[1])
+
+    for term_set, document in updated_results.items():
+        if len(document[0]) < min_support:
+            keys_to_remove.append(term_set)
+
+    for key in keys_to_remove:
+        del updated_results[key]
     
-    print(lowest_entry)
+    return updated_results
     
 
 def main():
-    min_support = 2
+    cluster = {}
+    term_sets = []
+    min_support = 4
     # Usage example
     # data = [
     #     "lonjakan kasus corona indonesia",
@@ -126,10 +151,40 @@ def main():
     
     frequent_term_set = generate_frequent_term_set(k_terms, data, min_support)
     # print(frequent_term_set)
-    eo_frequent_term_set = calculate_entropy_overlap(frequent_term_set, data)
+
+
+    while len(frequent_term_set) > 1:
+        eo_frequent_term_set = calculate_entropy_overlap(frequent_term_set, data)
+
+        removed = remove_document(eo_frequent_term_set, min_support)
+
+        # Use the frequent term set as the dictionary key for clustering
+        for term_set, (documents, entropy_overlap) in eo_frequent_term_set.items():
+            cluster[term_set] = (documents, entropy_overlap)
+
+        frequent_term_set = {term_set: document[0] for term_set, document in removed.items()}
+
+    # Remove the entropy overlap values from the final frequent term set
+    # final_frequent_term_set = {term_set: [] for term_set in frequent_term_set.keys()}
+    # print("Final frequent term set:")
+    # print(frequent_term_set)
+
+    print("Cluster:")
+    for term_set, document in cluster.items():
+        print(document[0], end=', ')
+
+    print("\n\nDeksripsi cluster")
+    for term_set, document in cluster.items():
+        term_sets.append(term_set)
+
+    print('{' + '}, {'.join(term_sets) + '}')
+    # eo_frequent_term_set = calculate_entropy_overlap(frequent_term_set, data)
+    # print("original dict")
     # print(eo_frequent_term_set)
 
-    remove_document(eo_frequent_term_set)
+    # removed = remove_document(eo_frequent_term_set, min_support)
+    # print("\nupdated dict")
+    # print(removed)
 
 
 if __name__ == "__main__":
