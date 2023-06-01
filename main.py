@@ -1,9 +1,12 @@
 from util import connect_db
 from util import ftc
+from util import scoring
+
 
 def fetch_data():
     # Connect to the database
-    conn, cursor = connect_db("localhost", "root", "", "deteksi_trending_topik")
+    conn, cursor = connect_db("localhost", "root", "",
+                              "deteksi_trending_topik")
 
     # Execute a query to fetch preprocessed text from the dokumen table
     cursor.execute("SELECT preproccess_text FROM dokumen LIMIT 200")
@@ -18,6 +21,7 @@ def fetch_data():
 
     # Return the preprocessed text as an array
     return preprocessed_text_list
+
 
 def main():
     # Fetch the preprocessed text from the database
@@ -47,7 +51,7 @@ def main():
     # print(data)
 
     cluster = ftc(data, 4)
-    print(cluster)
+    # print(cluster)
     print("Cluster:")
     for term_set, document in cluster.items():
         print(document[0], end=', ')
@@ -55,6 +59,11 @@ def main():
     print("\n\nDeksripsi cluster")
     for term_set, document in cluster.items():
         print(f"{{{''.join(term_set)}}}", end=", ")
+
+    scoring_cluster = scoring(cluster, data)
+    print("\n\nHasil Skoring")
+    print(scoring_cluster)
+
 
 if __name__ == "__main__":
     main()

@@ -39,7 +39,7 @@ def find_common_words(all_terms, data, min_support):
     
     # Find common words based on min_support
     common_words = [word for word, count in word_counts.items() if count >= min_support]
-    print(common_words)
+    # print(common_words)
     
     return common_words
 
@@ -164,12 +164,18 @@ def generate_frequent_term_set(common_words, data, min_support):
                     counter += 1
 
     frequent_term_set_temp = {}
+    # print(frequent_term_set)
     for word_combinations, freqs in frequent_term_set.items():
+        freqs = list(set(freqs))  # Remove duplicates from freqs list
+        frequent_term_set[word_combinations] = freqs
+
+    for word_combinations, freqs in frequent_term_set.items():
+        # print(len(freqs))
         if(len(freqs) >= min_support):
             frequent_term_set_temp[word_combinations] = list(set(freqs))
 
-    print("Counter loop untuk menghitung possibilites : " + str(counter))
-    print(frequent_term_set_temp)
+    # print("Counter loop untuk menghitung possibilites : " + str(counter))
+    # print(frequent_term_set_temp)
     return frequent_term_set_temp
 
 
@@ -233,19 +239,19 @@ def ftc(data, min_support):
     all_terms = generate_all_terms_flat(data)
     
     k_terms = find_common_words(all_terms, data, min_support)
-    print(len(k_terms))
-    print("Mengumpulkan k_terms...")
+    # print(len(k_terms))
+    # print("Mengumpulkan k_terms...")
     # print(k_terms)
     
     frequent_term_set = generate_frequent_term_set(k_terms, data, min_support)
-    print("membentuk frequent_term_set.....")
-    print(frequent_term_set)
+    # print("membentuk frequent_term_set.....")
+    # print(frequent_term_set)
     # print(frequent_term_set)
 
 
     i = 0
     while len(frequent_term_set) > 1:
-        print("Iterasi ke- " + str(i))
+        # print("Iterasi ke- " + str(i))
         eo_frequent_term_set = calculate_entropy_overlap(frequent_term_set, data)
 
         removed = remove_document(eo_frequent_term_set, min_support)
@@ -284,15 +290,15 @@ def main():
     ]
 
     cluster = ftc(data, min_support)
-    # print(cluster)
+    print(cluster)
 
-    print("\nCluster:")
-    for term_set, document in cluster.items():
-        print(document[0], end=', ')
+    # print("\nCluster:")
+    # for term_set, document in cluster.items():
+    #     print(document[0], end=', ')
 
-    print("\n\nDeksripsi cluster")
-    for term_set, document in cluster.items():
-        print(f"{{{''.join(term_set)}}}", end=", ")
+    # print("\n\nDeksripsi cluster")
+    # for term_set, document in cluster.items():
+    #     print(f"{{{''.join(term_set)}}}", end=", ")
         
 
 if __name__ == "__main__":
