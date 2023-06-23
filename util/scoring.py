@@ -78,47 +78,48 @@ def scoring(cluster, data):
 
 
 def main():
-    data = [
-        "penularan virus elon musk corona meningkat indonesia",
-        "pemerintah mengeluarkan kebijakan pembatasan sosial berskala besar",
-        "peningkatan kasus positif covid-19 mengkhawatirkan elon musk",
-        "vaksinasi massal dilaksanakan pusat-pusat kesehatan",
-        "rumah sakit mulai kelebihan kapasitas lonjakan pasien covid-19",
-        "protokol kesehatan tetap diikuti memutus rantai penyebaran virus",
-        "masyarakat diimbau menggunakan masker beraktivitas luar rumah",
-        "pemerintah melakukan upaya mempercepat distribusi vaksin covid-19",
-        "pertumbuhan ekonomi terhambat pandemi covid-19",
-        "diperlukan kerja sama pihak mengatasi pandemi",
-        "kegiatan belajar mengajar dilakukan secara daring mencegah penyebaran virus",
-        "peningkatan jumlah tes covid-19 mendeteksi kasus akurat",
-        "edukasi pentingnya vaksinasi melindungi diri orang lain elon musk",
-        "pemerintah memberlakukan karantina wilayah mengendalikan penyebaran virus",
-        "pertemuan massa dihindari mengurangi risiko penularan",
-        "pandemi covid-19 berdampak signifikan sektor pariwisata",
-        "penyakit menular perlu waspada mengikuti anjuran pemerintah"
-    ]
-
-    cluster = {
-        'virus': (['D6', 'D1', 'D11', 'D14'], 0.35),
-        'pemerintah': (['D2', 'D14', 'D17', 'D8'], 0.69),
-        'covid-19': (['D3', 'D5', 'D16', 'D9', 'D12', 'D8'], 0.35)
-    }
-
     # data = [
-    # "ahok modus manipulasi ktp",
-    # "ahok modus manipulasi ktp",
-    # "jokowi rapat natuna",
-    # "jokowi rapat natuna",
-    # "panglima tni koordinasi natuna ri"
+    #     "penularan virus elon musk corona meningkat indonesia",
+    #     "pemerintah mengeluarkan kebijakan pembatasan sosial berskala besar",
+    #     "peningkatan kasus positif covid-19 mengkhawatirkan elon musk",
+    #     "vaksinasi massal dilaksanakan pusat-pusat kesehatan",
+    #     "rumah sakit mulai kelebihan kapasitas lonjakan pasien covid-19",
+    #     "protokol kesehatan tetap diikuti memutus rantai penyebaran virus",
+    #     "masyarakat diimbau menggunakan masker beraktivitas luar rumah",
+    #     "pemerintah melakukan upaya mempercepat distribusi vaksin covid-19",
+    #     "pertumbuhan ekonomi terhambat pandemi covid-19",
+    #     "diperlukan kerja sama pihak mengatasi pandemi",
+    #     "kegiatan belajar mengajar dilakukan secara daring mencegah penyebaran virus",
+    #     "peningkatan jumlah tes covid-19 mendeteksi kasus akurat",
+    #     "edukasi pentingnya vaksinasi melindungi diri orang lain elon musk",
+    #     "pemerintah memberlakukan karantina wilayah mengendalikan penyebaran virus",
+    #     "pertemuan massa dihindari mengurangi risiko penularan",
+    #     "pandemi covid-19 berdampak signifikan sektor pariwisata",
+    #     "penyakit menular perlu waspada mengikuti anjuran pemerintah"
     # ]
 
     # cluster = {
-    # 'klaster1': (['D1', 'D2'], 0.35),
-    # 'klaster2': (['D3', 'D4'], 0.35),
-    # 'klaster3': (['D5'], 0.35)
+    #     'virus': (['D6', 'D1', 'D11', 'D14'], 0.35),
+    #     'pemerintah': (['D2', 'D14', 'D17', 'D8'], 0.69),
+    #     'covid-19': (['D3', 'D5', 'D16', 'D9', 'D12', 'D8'], 0.35)
     # }
 
-    scoring(cluster, data)
+    data = [
+    "ahok modus manipulasi ktp",
+    "ahok modus manipulasi ktp",
+    "jokowi rapat natuna",
+    "jokowi rapat natuna",
+    "panglima tni koordinasi natuna ri"
+    ]
+
+    cluster = {
+    'klaster1': (['D1', 'D2'], 0.35),
+    'klaster2': (['D3', 'D4'], 0.35),
+    'klaster3': (['D5'], 0.35)
+    }
+
+    hasil = scoring(cluster, data)
+    print(hasil)
 
 
 if __name__ == "__main__":
