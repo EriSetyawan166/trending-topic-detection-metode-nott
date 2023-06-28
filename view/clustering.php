@@ -114,47 +114,37 @@ if(isset($_POST['proses']))
                 <!-- Project Card Example -->
                 <!-- Content Column -->
                 <div class="col-lg-12 mb-4">
+    <!-- Project Card Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Clustering</h6>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <input class="btn btn-primary mb-4" type="submit" name="proses" value="Proses">
+            </form>
 
-                    <!-- Project Card Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Clustering</h6>
-                        </div>
-                        <div class="card-body">
-                            <form method="POST">
-                                <input class="btn btn-primary mb-4" type="submit" name="proses" value="Proses">
-                            </form>
-                            
-                            <?php
-                            // Get the list of image files in the directory
-                            $image_dir = '../assets/img/';
-                            $image_files = glob($image_dir . 'cluster_*_documents.png');
+            <?php
+            // Get the list of image files in the directory
+            $image_dir = '../assets/img/';
+            $image_files = glob($image_dir . 'cluster_*_documents.png');
 
-                            // Display the images in two columns
-                            $num_images = count($image_files);
-                            $num_per_row = 2;
-                            $num_rows = ceil($num_images / $num_per_row);
+            // Display one image per row
+            foreach ($image_files as $image_file) {
+                echo '<div class="row">';
+                echo '<div class="col-md-12 mb-4">';
+                echo '<div class="border p-3">';
+                echo '<img src="' . $image_file . '" alt="Cluster Image" class="img-fluid">';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+            }
+            ?>
 
-                            for ($i = 0; $i < $num_rows; $i++) {
-                                echo '<div class="row">';
-                                for ($j = 0; $j < $num_per_row; $j++) {
-                                    $index = $i * $num_per_row + $j;
-                                    if ($index < $num_images) {
-                                        echo '<div class="col-md-6 mb-4">';
-                                        echo '<div class="border p-3">';
-                                        echo '<img src="' . $image_files[$index] . '" alt="Cluster Image" class="img-fluid">';
-                                        echo '</div>';
-                                        echo '</div>';
-                                    }
-                                }
-                                echo '</div>';
-                            }
-                            ?>
-                            
-                        </div>
-                    </div>
+        </div>
+    </div>
+</div>
 
-                </div>
 
 
 </div>

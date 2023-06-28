@@ -15,7 +15,7 @@ def main():
     conn, cursor = connect_db("localhost", "root", "", "deteksi_trending_topik")
     
     # Execute a query to fetch some data from the database
-    cursor.execute("SELECT preproccess_text FROM dokumen")
+    cursor.execute("SELECT text_bersih FROM dokumen")
     rows = cursor.fetchall()
     
     # Print the fetched data
