@@ -25,7 +25,7 @@ myresult1 = mycursor.fetchall()
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
 
-nltk.download('stopwords')
+# nltk.download('stopwords')
 
 stop_words = set(stopwords.words('indonesian'))
 more_stopwords = ['the', 'iya', 'bang', 'sih', 'loh']

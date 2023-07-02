@@ -25,7 +25,6 @@
     if(isset($_POST['cari']))
     {   
         
-        // mysqli_query($conn, "DELETE FROM tweet2");
         $text = $_POST["text"];
         $output = passthru("python controller/tarik_data.py $text");
         header("Location: index.php");
@@ -33,8 +32,7 @@
 
     
 
-    // passthru("python util/word_cloud.py");
-    // passthru("python util/sering.py");
+    
 ?>
 
 
